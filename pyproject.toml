@@ -1,0 +1,58 @@
+[project]
+name = "accidents"
+version = "0.1.0"
+description = "US traffic accident severity: forensic analysis, model benchmark and explainability"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "catboost>=1.2.10",
+    "dice-ml>=0.12",
+    "effector>=0.6.0",
+    "interpret-core>=0.7.8",
+    "ipykernel>=6.29",
+    "lightgbm>=4.7.0",
+    "matplotlib>=3.10",
+    "nbconvert>=7.16",
+    "numpy>=2.3",
+    "optuna>=5.0",
+    "pandas>=2.3",
+    "pyarrow>=22",
+    "pytabkit>=1.7.3",
+    "scikit-learn>=1.7",
+    "shap>=0.53",
+    "torch>=2.14",
+    "xgboost>=3.4",
+]
+
+[dependency-groups]
+dev = [
+    "pandas-stubs>=3.0.5",
+    "pyright>=1.1.400",
+    "pytest>=8.4",
+    "ruff>=0.14",
+]
+
+# CUDA build of PyTorch for the RTX 4060; every other package comes from PyPI.
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pyright]
+include = ["src", "tests"]

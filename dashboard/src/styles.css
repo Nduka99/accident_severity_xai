@@ -1,0 +1,795 @@
+/* Tokens: the validated dataviz reference palette, light and dark. Text tokens clear
+   WCAG 2.2 AA on their surface; --muted (about 3.4:1) is for axes and large labels only. */
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --accent: #2a78d6;
+  --link: #1c5cab;
+  --on-link: #ffffff;
+  --focus: #1c5cab;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --diverge-neg: #2a78d6;
+  --diverge-mid: #f0efec;
+  --diverge-pos: #e34948;
+  --ramp-0: #cde2fb;
+  --ramp-1: #86b6ef;
+  --ramp-2: #3987e5;
+  --ramp-3: #1c5cab;
+  --ramp-4: #0d366b;
+  --good: #006300;
+  --serious: #a3401c;
+  --selection: rgba(42, 120, 214, 0.18);
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.06), 0 4px 12px rgba(11, 11, 11, 0.05);
+  --radius: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --max: 1200px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --grid: #2c2c2a;
+    --baseline: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --accent: #3987e5;
+    --link: #86b6ef;
+    --on-link: #0b0b0b;
+    --focus: #86b6ef;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --diverge-neg: #3987e5;
+    --diverge-mid: #383835;
+    --diverge-pos: #e66767;
+    --ramp-0: #104281;
+    --ramp-1: #1c5cab;
+    --ramp-2: #3987e5;
+    --ramp-3: #86b6ef;
+    --ramp-4: #cde2fb;
+    --good: #0ca30c;
+    --serious: #ec835a;
+    --selection: rgba(57, 135, 229, 0.3);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --grid: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #3987e5;
+  --link: #86b6ef;
+  --on-link: #0b0b0b;
+  --focus: #86b6ef;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --diverge-neg: #3987e5;
+  --diverge-mid: #383835;
+  --diverge-pos: #e66767;
+  --ramp-0: #104281;
+  --ramp-1: #1c5cab;
+  --ramp-2: #3987e5;
+  --ramp-3: #86b6ef;
+  --ramp-4: #cde2fb;
+  --good: #0ca30c;
+  --serious: #ec835a;
+  --selection: rgba(57, 135, 229, 0.3);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Base and browser surfaces ---------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* clears the sticky bar so focused targets stay visible */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 16px/1.55 var(--font);
+  font-feature-settings: "kern" 1;
+  accent-color: var(--accent);
+  caret-color: var(--accent);
+}
+
+::selection {
+  background: var(--selection);
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0;
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  font-weight: 650;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem);
+  font-weight: 650;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 620;
+}
+
+p {
+  margin: 0;
+  max-width: 70ch;
+}
+
+.num,
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -48px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  z-index: 20;
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- Top bar ---------------------------------------------------------------------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--page);
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sections {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+}
+
+.sections a {
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 6px;
+  white-space: nowrap;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sections a:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+.sections a[aria-current="true"] {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.credit {
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* ---- Layout ----------------------------------------------------------------------- */
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--space-5) var(--space-8);
+}
+
+section {
+  padding-top: var(--space-8);
+}
+
+.section-head {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.section-head p {
+  color: var(--ink-2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.span-7 {
+  grid-column: span 7;
+}
+
+.span-5 {
+  grid-column: span 5;
+}
+
+.span-6 {
+  grid-column: span 6;
+}
+
+.span-12 {
+  grid-column: span 12;
+}
+
+.stacked {
+  margin-top: var(--space-5);
+}
+
+/* Spans two rows beside the map and the ribbon on wide screens; in order on phones. */
+.tall {
+  grid-row: span 2;
+  align-self: start;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}
+
+/* ---- Finding (first viewport) ----------------------------------------------------- */
+
+.finding {
+  padding-top: var(--space-7);
+}
+
+.finding .lede {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.finding .lede p {
+  color: var(--ink-2);
+  font-size: 1.0625rem;
+}
+
+/* ---- Figures, charts, tables ------------------------------------------------------ */
+
+figure {
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.figure-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.figure-head h3 {
+  max-width: 60ch;
+}
+
+figcaption,
+.source {
+  color: var(--ink-2);
+  font-size: 0.875rem;
+}
+
+.toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.toggle button {
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  border-radius: 4px;
+  padding: 0 var(--space-3);
+  min-height: 28px;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+.toggle button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink);
+}
+
+/* Only the chart itself fills the width; legend keys keep their own size. */
+.chart > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart text {
+  fill: var(--ink-2);
+  font-size: 12px;
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+.chart .axis line,
+.chart .axis path {
+  stroke: var(--baseline);
+}
+
+.chart .gridline {
+  stroke: var(--grid);
+  stroke-width: 1;
+}
+
+.chart .hit {
+  fill: transparent;
+  cursor: default;
+}
+
+.chart .hit:focus-visible {
+  outline: none;
+  stroke: var(--focus);
+  stroke-width: 2;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td.number,
+.data-table th.number {
+  text-align: right;
+}
+
+.data-table th {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 30;
+  pointer-events: none;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.8125rem;
+  max-width: 280px;
+  display: grid;
+  gap: 2px;
+}
+
+.tooltip[hidden] {
+  display: none;
+}
+
+.tooltip strong {
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Explorer --------------------------------------------------------------------- */
+
+.map-wrap {
+  position: relative;
+}
+
+/* Only the map itself fills the width; legend keys keep their own size. */
+.map > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+}
+
+.map .state {
+  fill: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  stroke: var(--surface);
+  stroke-width: 1;
+}
+
+.map .cell {
+  shape-rendering: crispEdges;
+}
+
+.map .marker-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.map .marker-dot {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.map-hint {
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  margin-top: var(--space-2);
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.field label,
+.field legend {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.field .hint {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+input,
+select {
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  border-radius: 6px;
+  padding: 0 var(--space-3);
+  min-height: 40px;
+  width: 100%;
+}
+
+input:hover,
+select:hover {
+  border-color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.checks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1) var(--space-3);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 32px;
+  font-size: 0.9375rem;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin: 0;
+}
+
+.readings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 var(--space-3);
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.chip[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.result {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.risk-figure {
+  font-size: clamp(2.75rem, 2rem + 3vw, 3.75rem);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.risk-context {
+  color: var(--ink-2);
+}
+
+.band {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  width: fit-content;
+}
+
+.band svg {
+  width: 16px;
+  height: 16px;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: inherit;
+  font-weight: 600;
+  color: var(--on-link);
+  background: var(--link);
+  border: 0;
+  border-radius: 6px;
+  padding: 0 var(--space-4);
+  min-height: 44px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.button:hover {
+  background: color-mix(in srgb, var(--link) 88%, var(--ink));
+  text-decoration: none;
+}
+
+/* ---- Lists and footer ------------------------------------------------------------- */
+
+.plain-list {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 75ch;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  color: var(--ink-2);
+  font-size: 0.875rem;
+}
+
+footer .inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.status {
+  color: var(--ink-2);
+  padding: var(--space-6) 0;
+}
+
+/* ---- Small screens ---------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .span-7,
+  .span-5,
+  .span-6 {
+    grid-column: span 12;
+  }
+
+  .tall {
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 104px; /* the bar wraps to two rows (95px) at this width */
+  }
+
+  .topbar-inner {
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .credit {
+    display: none;
+  }
+
+  .sections {
+    flex-basis: 100%;
+  }
+
+  main {
+    padding: 0 var(--space-4) var(--space-7);
+  }
+
+  section {
+    padding-top: var(--space-7);
+  }
+
+  .panel {
+    padding: var(--space-4);
+  }
+
+  .checks,
+  .readings {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

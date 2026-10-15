@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>US Accident Impact Risk</title>
+    <meta
+      name="description"
+      content="Which US traffic accidents cause a major traffic impact: an honestly evaluated, calibrated and explained model you can try in your browser."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#finding">US Accident Impact Risk</a>
+        <nav class="sections" aria-label="Sections">
+          <a href="#finding">Finding</a>
+          <a href="#explorer">Try the model</a>
+          <a href="#story">Why the old number was wrong</a>
+          <a href="#evidence">How it was tested</a>
+          <a href="#explain">How it decides</a>
+          <a href="#limits">Limits</a>
+        </nav>
+        <span class="credit">by Nduka Nwagbo</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="finding" class="finding" aria-labelledby="finding-title">
+        <div class="grid">
+          <div class="span-7 lede">
+            <h1 id="finding-title">The popular “accident severity” label largely tracked which traffic feed filed the report.</h1>
+            <p id="finding-summary" class="status">Loading the model and its evidence…</p>
+            <div id="finding-chart"></div>
+          </div>
+          <aside class="span-5 panel result" id="preview" aria-labelledby="preview-title">
+            <h2 id="preview-title" class="visually-hidden">Live result</h2>
+          </aside>
+        </div>
+      </section>
+
+      <section id="explorer" aria-labelledby="explorer-title">
+        <div class="section-head">
+          <h2 id="explorer-title">Try the model on a place, a time and the weather</h2>
+          <p>
+            Click anywhere on the map, or start from a real accident from the test months. Every
+            change is scored in your browser with the same trees as the notebooks, and the
+            explanation is exact.
+          </p>
+        </div>
+        <div class="grid">
+          <div class="span-7 panel">
+            <div id="map" class="map map-wrap"></div>
+            <p class="map-hint" id="map-hint">Squares show each area's past-year rate of major-impact reports as of March 2023; a real accident uses its area's history as of its own date.</p>
+          </div>
+          <form class="span-5 panel controls tall" id="controls" aria-label="Accident conditions"></form>
+          <div class="span-7 panel" id="ribbon-panel"></div>
+          <div class="span-12 panel" id="attribution-panel"></div>
+        </div>
+      </section>
+
+      <section id="story" aria-labelledby="story-title">
+        <div class="section-head">
+          <h2 id="story-title">Why the old number was wrong</h2>
+          <p id="story-summary"></p>
+        </div>
+        <div class="grid" id="story-figures"></div>
+      </section>
+
+      <section id="evidence" aria-labelledby="evidence-title">
+        <div class="section-head">
+          <h2 id="evidence-title">How the honest model was tested</h2>
+          <p id="evidence-summary"></p>
+        </div>
+        <div class="grid" id="evidence-figures"></div>
+      </section>
+
+      <section id="explain" aria-labelledby="explain-title">
+        <div class="section-head">
+          <h2 id="explain-title">How it decides, and how far to trust that</h2>
+          <p id="explain-summary"></p>
+        </div>
+        <div class="grid" id="explain-figures"></div>
+      </section>
+
+      <section id="limits" aria-labelledby="limits-title">
+        <div class="section-head">
+          <h2 id="limits-title">Limits, model card and data</h2>
+        </div>
+        <div class="grid" id="limits-body"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="inner">
+        <p>
+          Built by Nduka Nwagbo. Code and notebooks:
+          <a href="https://github.com/Nduka99/accident_severity_xai">github.com/Nduka99/accident_severity_xai</a>.
+        </p>
+        <p>
+          Data: US Accidents (2016–2023), Moosavi et al., licensed
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. Derived
+          model files are shared under the same licence, for non-commercial use. Map outlines: us-atlas
+          (US Census Bureau boundaries).
+        </p>
+      </div>
+    </footer>
+
+    <div class="tooltip" id="tooltip" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
